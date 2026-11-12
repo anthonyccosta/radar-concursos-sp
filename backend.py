@@ -9,9 +9,17 @@ DB_PATH = "concursos.db"
 
 
 def inicializar_banco():
-  """Cria a tabela no SQLite com chave normalizada para evitar duplicatas por maiúsculas/minúsculas."""
+  """Cria a tabela no SQLite e garante auto-migração caso a estrutura antiga exista."""
   conn = sqlite3.connect(DB_PATH)
   cursor = conn.cursor()
+
+  # Verifica se a tabela existe com a estrutura antiga (sem a coluna 'chave_unica')
+  cursor.execute("PRAGMA table_info(editais)")
+  colunas_existentes = [col[1] for col in cursor.fetchall()]
+
+  if colunas_existentes and "chave_unica" not in colunas_existentes:
+    cursor.execute("DROP TABLE editais")
+
   cursor.execute("""
         CREATE TABLE IF NOT EXISTS editais (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +36,6 @@ def inicializar_banco():
     """)
   conn.commit()
   conn.close()
-
 
 def extrair_maior_salario(texto):
   """Usa Regex para capturar o maior valor em R$ dentro da string de detalhes."""
