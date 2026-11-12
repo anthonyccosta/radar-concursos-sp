@@ -26,5 +26,5 @@ Aplicação web desenvolvida em Python para monitoramento automatizado, filtrage
 
 &#x20;  ```bash
 
-&#x20;  git clone \[https://github.com/SEU-USUARIO/radar-concursos-sp.git](https://github.com/SEU-USUARIO/radar-concursos-sp.git)
+&#x20;  git clone \[https://github.com/anthonyccosta/radar-concursos-sp.git](https://github.com/anthonyccosta/radar-concursos-sp.git)
 
